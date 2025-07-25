@@ -1,0 +1,180 @@
+/* body 전체 중앙 정렬 & 여백 제거 */
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;       /* 수평 중앙 정렬 */
+    justify-content: flex-start;
+    min-height: 100vh;
+    background-color: #fafafa;
+}
+
+/* 제목 중앙 & 여백 */
+#a {
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    font-weight: 700;
+    font-size: 2.5rem;
+    color: #333;
+}
+
+/* 검색 영역 스타일 */
+div > input[type="text"] {
+    width: 300px;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    border: 2px solid #ccc;
+    border-radius: 6px 0 0 6px;
+    outline: none;
+    box-sizing: border-box;
+}
+
+div > button {
+    padding: 0.55rem 1.2rem;
+    font-size: 1rem;
+    border: 2px solid #007bff;
+    border-left: none;
+    border-radius: 0 6px 6px 0;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.25s ease;
+}
+
+div > button:hover {
+    background-color: #0056b3;
+}
+
+/* 검색창과 버튼 가로 정렬 */
+div {
+    margin-bottom: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* .center-box 는 기존 스타일 유지하되 가로 크기 제한 추가 */
+.center-box {
+    display: flex;
+    height: 70vh;            /* 전체 높이를 70vh로 줄임 (검색창과 제목과 조화) */
+    width: 800px;            /* 너비 제한으로 중앙 정렬 느낌 */
+    max-width: 90vw;
+    text-align: center;
+    padding: 1rem;
+    box-sizing: border-box;
+    background-color: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+/* 이미지 공간 - 좌측 전체 높이 차지 */
+#image {
+    width: 40%;                 /* 좌측 40% */
+    height: 100%;               /* 부모 .center-box 높이의 100% */
+    background-color: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    font-weight: bold;
+    padding: 1rem;
+    box-sizing: border-box;
+    margin-top: 1rem;  /* 원하는 만큼 조절 가능 (예: 1rem ~ 3rem) */
+}
+
+/* 우측 컨텐츠 영역 - 60%, 세로로 배치 */
+.right-content {
+    width: 60%;
+    height: 100%;               /* 부모 높이 전부 */
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* 제목, 상세보기, 버튼을 상/중/하단 배치 */
+    padding-left: 1.5rem;
+    box-sizing: border-box;
+    align-items: flex-start;    /* 왼쪽 정렬 */
+}
+
+/* 제목 */
+#title {
+    font-size: 22px;              /* 크기 약간 줄임 */
+    font-weight: 700;
+    background-color: #e6e6e6;
+    border-radius: 8px;
+    padding: 1rem;
+    width: 90%;
+    text-align: left;
+    margin-top: 1rem;  /* 원하는 만큼 조절 가능 (예: 1rem ~ 3rem) */
+    /* 텍스트 줄바꿈 및 넘침 방지 */
+    overflow-wrap: break-word;
+    word-break: break-word;
+}
+
+/* 상세내용 */
+#Details {
+    background-color: #e6e6e6;
+    border-radius: 8px;
+    padding: 1rem;
+    width: 90%;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    flex-grow: 1;
+    overflow-y: auto;
+    text-align: left;
+
+    /* 텍스트 줄바꿈 및 넘침 방지 */
+    overflow-wrap: break-word;
+    word-break: break-word;
+}
+
+/* 검색하기 버튼 - 우측 하단 정렬 */
+.right-content > button[type="submit"] {
+    align-self: flex-end;
+    padding: 0.6rem 1.2rem;
+    font-size: 16px;
+    background-color: #007bff;
+    border: none;
+    border-radius: 6px;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.right-content > button[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 2rem;
+}
+
+form input[type="text"] {
+    width: 300px;
+    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    border: 2px solid #ccc;
+    border-radius: 6px 0 0 6px;
+    outline: none;
+    box-sizing: border-box;
+    border-right: none;
+}
+
+form button {
+    padding: 0.55rem 1.2rem;
+    font-size: 1rem;
+    border: 2px solid #007bff;
+    border-left: none;
+    border-radius: 0 6px 6px 0;
+    background-color: #007bff;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.25s ease;
+}
+
+form button:hover {
+    background-color: #0056b3;
+}

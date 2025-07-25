@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>영화 검색</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .movie-container {
+            display: flex;
+            flex-direction: column; /* 세로로 나열 */
+            gap: 20px;
+        }
+        .movie-card {
+            display: flex; /* 포스터와 텍스트를 가로로 배치 */
+            border: 1px solid black; /* 기본 테두리: 검정색 */
+            border-radius: 10px; /* 둥근 테두리 */
+            padding: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: border 0.3s ease; /* 테두리 변화 부드럽게 */
+        }
+        .movie-card:hover {
+            border: 2px solid #e74c3c; /* 호버 시 테두리: 빨간색, 약간 굵게 */
+        }
+        .movie-poster {
+            width: 150px; /* 포스터 크기 조정 */
+            height: auto;
+            margin-right: 15px;
+        }
+        .movie-content {
+            flex: 1; /* 나머지 공간 채우기 */
+        }
+        .movie-title {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .movie-rating {
+            color: #f39c12;
+            margin-bottom: 10px;
+        }
+        .movie-description {
+            font-size: 0.9em;
+            color: #555;
+            margin-bottom: 10px;
+        }
+        .movie-details {
+            font-size: 0.8em;
+            color: #888;
+            margin-bottom: 10px;
+        }
+        .similar-movie-form button {
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9em;
+        }
+        .similar-movie-form button:hover {
+            background-color: #b62f20;
+        }
+        .pagination {
+            display: flex;
+            justify-content: center; /* 가로 중앙 정렬 */
+            align-items: center;
+            margin-top: 20px;
+            gap: 10px; /* 버튼과 페이지 번호 간 간격 */
+        }
+        .pagination form {
+            display: inline;
+        }
+        .pagination button {
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 0.9em;
+        }
+        .pagination button:hover {
+            background-color: #b62f20;
+        }
+        .pagination span {
+            font-size: 1em;
+            color: #333;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>'{{original}}'의 영화 검색 결과</h1>
+    <div class="movie-container">
+        {% for movie in movies %}
+        <div class="movie-card">
+            {% if movie.poster_path %}
+            <img src="https://image.tmdb.org/t/p/w500{{ movie.poster_path }}" alt="{{ movie.korean_title }} 포스터" class="movie-poster">
+            {% else %}
+            <div class="movie-poster" style="width: 150px; height: 225px; background-color: #eee; display: flex; align-items: center; justify-content: center; margin-right: 15px;">
+                포스터 없음
+            </div>
+            {% endif %}
+            <div class="movie-content">
+                <div class="movie-title">{{ movie.korean_title }}</div>
+                <div class="movie-rating">
+                    평점: {{ movie.averagerating if movie.averagerating else '없음' }}
+                </div>
+                <div class="movie-description">
+                    {{ movie.overview if movie.overview else '설명 없음' }}
+                </div>
+                <div class="movie-details">
+                    IMDB ID: {{ movie.imdb_id if movie.imdb_id else '없음' }}<br>
+                    투표 수: {{ movie.numVotes if movie.numVotes else '없음' }}<br>
+                    성인 등급: {{ '예' if movie.is_adult else '아니오' }}
+                </div>
+                <form action="/similar-movie" method="post" class="similar-movie-form">
+                    <input type="hidden" id="title-{{ movie.id }}" name="title" value="{{ movie.korean_title }}">
+                    <input type="hidden" id="details-{{ movie.id }}" name="details" value="{{ movie.overview | replace('\n', ' ') | replace('\r', ' ') }}">
+                    <button type="submit">연관 영화 검색</button>
+                </form>
+            </div>           
+        </div>        
+        {% endfor %}        
+    </div>    
+    <div class="pagination">
+        {% if page > 1 %}
+            <form action="{{ url_for('search_movie') }}" method="post" style="display:inline;">
+                <input type="hidden" name="title" value="{{ title }}">
+                <input type="hidden" name="page" value="{{ page - 1 }}">
+                <button type="submit">이전</button>
+            </form>
+        {% endif %}
+        <span>Page {{ page }}</span>
+        {% if (count - page*10) > 0 %}
+            <form action="{{ url_for('search_movie') }}" method="post" style="display:inline;">
+                <input type="hidden" name="title" value="{{ original }}">
+                <input type="hidden" name="page" value="{{ page + 1 }}">
+                <button type="submit">이후</button>
+            </form>
+        {% endif %}
+    </div>
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <title>연관 영화 목록</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        .movie-container {
+            display: flex;
+            flex-direction: column; /* 세로로 나열 */
+            gap: 20px;
+        }
+        .movie-card {
+            display: flex; /* 포스터와 텍스트를 가로로 배치 */
+            border: 1px solid black; /* 기본 테두리: 검정색 */
+            border-radius: 10px; /* 둥근 테두리 */
+            padding: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: border 0.3s ease; /* 테두리 변화 부드럽게 */
+        }
+        .movie-card:hover {
+            border: 2px solid #e74c3c; /* 호버 시 테두리: 빨간색, 약간 굵게 */
+        }
+        .movie-poster {
+            width: 150px; /* 포스터 크기 조정 */
+            height: auto;
+            margin-right: 15px;
+        }
+        .movie-content {
+            flex: 1; /* 나머지 공간 채우기 */
+        }
+        .movie-title {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .movie-rating {
+            color: #f39c12;
+            margin-bottom: 10px;
+        }
+        .movie-description {
+            font-size: 0.9em;
+            color: #555;
+            margin-bottom: 10px;
+        }
+        .movie-keywords {
+            font-size: 0.8em;
+            color: #888;
+        }
+    </style>
+</head>
+<body>
+    <h1>'{{original}}'의 연관 영화 목록</h1>
+    <div class="movie-container">
+        {% for movie in result %}
+        <div class="movie-card">
+            <img src="https://image.tmdb.org/t/p/w500{{ movie.poster }}" alt="{{ movie.title }} 포스터" class="movie-poster">
+            <div class="movie-content">
+                <div class="movie-title">{{ movie.title }}</div>
+                <div class="movie-rating">평점: {{ movie.rating }}</div>
+                <div class="movie-description">{{ movie.description }}</div>
+                <div class="movie-keywords">
+                    키워드: {{ movie.keywords | join(', ') }}
+                    <br>
+                    키워드 랭킹: {{ movie.keywordsRanking }}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>
