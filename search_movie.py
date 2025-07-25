@@ -6,9 +6,9 @@ class Database:
         self.connection = None
         try:
             self.connection = pymysql.connect(
-                host='localhost', 
+                host='mariadb',
                 port=3306,
-                database='movie',  # test 데이터베이스 사용
+                database='waffle',  # test 데이터베이스 사용
                 user='root',
                 password='1111',  # mariadb 설치 당시의 패스워드, 실제 환경에서는 보안을 위해 환경변수 등을 사용
                 charset='utf8mb4',

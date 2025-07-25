@@ -8,13 +8,15 @@ import math
 # db 커넥터
 def dbconnect(__name__):
     if __name__ == '__main__':
-        DB_HOST = "localhost"
+        # DB_HOST = "localhost"
         # DB_HOST = "svc.sel5.cloudtype.app"        
+        DB_HOST="mariadb"
         DB_PORT = 3306
         # DB_PORT = 32089
         DB_USER = "root"
         DB_PASSWORD = "1111"
-        DB_DATABASE = "movie"
+        # DB_DATABASE = "movie"
+        DB_DATABASE = "waffle"
     elif __name__ == '__test__':
         DB_HOST = "localhost"
         DB_PORT = 3306
